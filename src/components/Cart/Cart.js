@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { ShoppingContext } from "../../store/shopping-context";
+import Button from "../Button/Button";
 
 const Cart = () => {
   const { cartItem, addItem, removeItem } = useContext(ShoppingContext);
@@ -31,23 +32,33 @@ const Cart = () => {
           <div>qty: {element.qty}</div>
           <div>{`${element.price}$`}</div>
           <div>
-            <button
+            <Button
               onClick={() => addToCartHandler(element)}
               className="btn btn-success"
             >
               +
-            </button>
-            <button
+            </Button>
+
+            <Button
               onClick={() => removeCartItem(element)}
               className="btn btn-danger"
               style={{ marginLeft: "5px" }}
             >
               -
-            </button>
+            </Button>
           </div>
         </div>
       ))}
-      <div className="mt-5">Total Price: {`${totalPrice}$`}</div>
+      {cartItem.items.length > 0 && (
+        <div className="mt-4">Total Price: {`${totalPrice}$`}</div>
+      )}
+      {cartItem.items.length > 0 && (
+        <div className="d-flex justify-content-center mt-4">
+          <Button style={{ width: "100px" }} className="btn btn-warning">
+            Order
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
